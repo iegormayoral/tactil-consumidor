@@ -1,0 +1,20 @@
+<div class="select" [ngClass]="{'select--open': opened}">
+  <div class="select__head" (click)="open()">
+    <div class="select-item">
+      <img [src]="lang.bandera" [alt]="lang.descri">
+
+      <div class="select__head-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.939 7.939L12 12.879 7.061 7.939 4.939 10.061 12 17.121 19.061 10.061z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="select__body">
+    <div *ngFor="let lang of langList" class="select-item" (click)="selectLang(lang)">
+      <img [src]="lang.bandera" [alt]="lang.descri">
+      <span>{{ lang.descri }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="select-backdrop" (click)="close()" [attr.aria-hidden]="!opened"></div>

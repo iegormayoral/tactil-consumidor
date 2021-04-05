@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Angular Electron</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+
+  <style>
+    :root {
+      --spinner-size: 80px;
+    }
+
+    .spinner-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner-inner {
+      position: relative;
+      width: var(--spinner-size);
+      height: var(--spinner-size);
+    }
+
+    .spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+    }
+
+    .spinner-1 {
+      background-image: url(./assets/img/myrl/spinner_b.svg);
+      animation: spinner-1 2.0s infinite ease-in-out;
+      animation-delay: -1s;
+    }
+
+    .spinner-2 {
+      background-image: url(./assets/img/myrl/spinner_a.svg);
+      animation: spinner-2 2.0s infinite ease-in-out;
+    }
+
+    @keyframes spinner-1 {
+      0%, 100% {
+        transform: scale(0.9);
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes spinner-2 {
+      0%, 100% {
+        transform: scale(0.9);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <app-root>
+    <div class="spinner-wrapper">
+      <div class="spinner-inner">
+        <div class="spinner spinner-1"></div>
+        <div class="spinner spinner-2"></div>
+      </div>
+    </div>
+  </app-root>
+</body>
+</html>

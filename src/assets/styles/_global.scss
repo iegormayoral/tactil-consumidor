@@ -1,0 +1,42 @@
+@import '~reset-css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size);
+  line-height: var(--line-height-base);
+  background: var(--white);
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-2);
+}
+
+.ripple {
+  position: absolute;
+  background-color: rgba(#0172ea, 0.075);
+  border-radius: 50%;
+  transform: scale(0);
+
+  &:not([aria-hidden="true"]) {
+    animation: menu-ripple 600ms linear;
+  }
+}
+
+@keyframes menu-ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

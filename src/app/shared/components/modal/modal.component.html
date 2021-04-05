@@ -1,0 +1,13 @@
+<div class="modal" [ngClass]="{'modal--opened': opened}">
+  <div class="modal__backdrop" (click)="close()"></div>
+  <div class="modal__dialog">
+    <div *ngIf="hasHeader" class="modal__header">
+      <div *ngIf="title" class="modal__header-title" style="flex: 1 1 auto;">{{ title }}</div>
+      <button type="button" class="modal-close" (click)="close()">&times;</button>
+    </div>
+
+    <div class="modal__body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

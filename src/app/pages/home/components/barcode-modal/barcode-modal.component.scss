@@ -1,0 +1,175 @@
+:host(.has-error) {
+  // ..
+}
+
+app-modal ::ng-deep {
+  .modal__dialog {
+    width: 380px;
+  }
+}
+
+.barcode__head {
+  text-align: center;
+  margin: var(--spacing-2) 0 var(--spacing-1);
+
+  &-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &-subtitle {
+    font-size: var(--font-size-sm);
+    margin-top: 7px;
+    color: rgba(#000, 0.75);
+  }
+}
+
+.barcode__illustration {
+  display: block;
+  width: 100%;
+
+  > svg {
+    display: block;
+    width: 100%;
+    height: 240px;
+    margin-bottom: -10px;
+  }
+
+  &-redline {
+    animation: line-scan 2.5s ease-in-out infinite;
+
+    @keyframes line-scan {
+      0%, 100% {
+        opacity: 0;
+        transform: matrix(0, 1, -1, 0, 74.27, -10);
+      }
+
+      10%, 40% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+        transform: matrix(0, 1, -1, 0, 74.27, 10);
+      }
+    }
+  }
+}
+
+/**
+ * Input
+ */
+.barcode__input {
+  position: relative;
+  height: 45px;
+
+  > input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-sans);
+    font-size: var(--font-size);
+    padding: var(--spacing-1);
+    padding-left: 40px;
+    border: 1px solid rgba(#000, 0.1);
+    border-radius: var(--border-radius);
+  }
+
+  &-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+
+    > svg {
+      display: block;
+    }
+  }
+}
+
+/**
+ * Button
+ */
+.barcode__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 45px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size);
+  color: var(--text-dark);
+  background: var(--gray);
+  border: 0;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--gray-dark);
+  }
+
+  &-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: var(--spacing-05);
+    fill: currentColor;
+    transition: transform 160ms ease-in-out;
+  }
+}
+
+.barcode__button--expand {
+  font-size: var(--font-size-sm);
+}
+
+.barcode__button--submit {
+  width: 50px;
+  background: var(--green);
+
+  &:hover {
+    background: var(--green-dark);
+  }
+
+  > svg {
+    display: block;
+    fill: var(--white);
+  }
+}
+
+.barcode__form {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  background: var(--white);
+  border-radius: var(--border-radius);
+
+  &-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: var(--spacing-1);
+  }
+
+  &:not(&--expanded) &-content {
+    display: none;
+  }
+
+  .barcode__button--expand {
+    border-radius: inherit;
+  }
+
+  &--expanded .barcode__button-icon {
+    transform: rotate(180deg);
+  }
+
+  &-input {
+    flex: 1 1 auto;
+    margin-right: var(--spacing-1);
+  }
+}

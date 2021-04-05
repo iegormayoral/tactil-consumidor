@@ -1,0 +1,64 @@
+html {
+  /**
+   * Color palette
+   */
+  --white: #ffffff;
+  --gray: #f5f5f5;
+  --gray-light: #{lighten(#f5f5f5, 2%)};
+  --gray-dark: #{darken(#f5f5f5, 5%)};
+  --black: #000000;
+  --black-light: #313131;
+  --blue: #0172ea;
+  --blue-light: #{lighten(#0172ea, 47%)};
+  --green: #3fb13f;
+  --green-dark: #{darken(#3fb13f, 5%)};
+
+  --primary: var(--blue);
+  --text-light: var(--white);
+  --text-dark: var(--black-light);
+
+  /**
+   * Font family
+   */
+  --font-sans: 'Branding', Arial, Helvetica, sans-serif;
+  --font-weight-semilight: 300;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 900;
+  --font-size: 16px;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 25px;
+  --line-height-base: 1.3;
+
+  /**
+   * Container
+   */
+  --container-width: 1700px;
+
+  /**
+   * Spacing
+   */
+  --spacing-05: 5px;
+  --spacing-1: 10px;
+  --spacing-2: 20px;
+  --spacing-3: 30px;
+  --spacing-4: 40px;
+  --spacing-5: 50px;
+
+  /**
+   * Radius
+   */
+  --border-radius: 3px;
+  --border-radius-lg: 6px;
+
+  /**
+   * Images
+   */
+  --icon-white-svg: url('https://static.mayoral.com/lib_img/logo/svg/simbolo_n_2020.svg');
+  --icon-white-base64: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4xLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDEwMCAxMDAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEwMCAxMDA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMwMTcyRUE7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8ZyBpZD0iQ2FwYV8yXzFfIj4NCgk8cmVjdCBpZD0iWE1MSURfMV8iIGNsYXNzPSJzdDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIi8+DQo8L2c+DQo8ZyBpZD0iQ2FwYV8xXzFfIj4NCgk8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNTAuMiwxLjRDMjIuMSwxLjQsMS42LDIwLjgsMS42LDUwYzAsMzAsMjAuMSw0OC40LDQ4LjMsNDguNEM3OCw5OC40LDk4LjYsNzkuMSw5OC42LDUwDQoJCUM5OC42LDIwLjQsNzguNCwxLjQsNTAuMiwxLjR6IE03NS4zLDcwLjdjLTAuNCwwLTAuOCwwLTEuMy0wLjF2MC4xSDI2LjV2LTAuMWMtNy4zLTAuNy0xMy02LjktMTMtMTQuNmMwLTcuMSw0LjktMTMsMTEuNC0xNC4zDQoJCWMtMC41LTEuNy0wLjgtMy41LTAuOC01LjRjMC0xMC41LDguMy0xOC45LDE4LjUtMTguOWM5LDAsMTYuNSw2LjYsMTguMSwxNS4zYzAuOS0wLjIsMS45LTAuMywzLTAuM0M3MSwzMi4zLDc3LDM4LjUsNzcsNDYuMQ0KCQljMCwwLjYtMC4xLDEuMy0wLjEsMS45YzUuNCwwLjgsOS42LDUuNSw5LjYsMTEuM0M4Ni41LDY1LjUsODEuNSw3MC43LDc1LjMsNzAuN3oiLz4NCjwvZz4NCjwvc3ZnPg0K';
+  --icon-primary-svg: url('https://static.mayoral.com/lib_img/logo/svg/simbolo_p_2020.svg');
+  --icon-primary-base64: 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNC4xLjIsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDEwMCAxMDAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDEwMCAxMDA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiNGRkZGRkY7fQ0KCS5zdDF7ZmlsbDojMDE3MkVBO30NCjwvc3R5bGU+DQo8cmVjdCB4PSIxMyIgeT0iMTUiIGNsYXNzPSJzdDAiIHdpZHRoPSI3My42IiBoZWlnaHQ9IjYyLjgiLz4NCjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01MC4yLDBDMjEuMiwwLDAsMTkuOSwwLDUwLjFjMCwzMSwyMC44LDQ5LjksNDkuOCw0OS45UzEwMCw4MC4xLDEwMCw1MC4xQzEwMCwxOS41LDc5LjIsMCw1MC4yLDB6IE03NS4xLDcwLjUNCgljLTAuNCwwLTAuOCwwLTEuMy0wLjF2MC4xSDI2Ljd2LTAuMWMtNy4yLTAuNy0xMi45LTYuOS0xMi45LTE0LjRjMC03LDQuOC0xMi44LDExLjMtMTQuMmMtMC41LTEuNy0wLjgtMy41LTAuOC01LjQNCgljMC0xMC40LDguMi0xOC44LDE4LjMtMTguOGM4LjksMCwxNi4zLDYuNSwxOCwxNS4yYzAuOS0wLjIsMS45LTAuMywyLjktMC4zYzcuMywwLDEzLjMsNi4xLDEzLjMsMTMuNmMwLDAuNi0wLjEsMS4yLTAuMSwxLjgNCgljNS40LDAuOCw5LjUsNS41LDkuNSwxMS4yQzg2LjIsNjUuNCw4MS4yLDcwLjUsNzUuMSw3MC41eiIvPg0KPC9zdmc+DQo=';
+}

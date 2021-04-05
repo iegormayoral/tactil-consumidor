@@ -1,0 +1,105 @@
+.select-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  &[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.select-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 13px 15px;
+  border-bottom: 1px solid rgba(#000, 0.1);
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background: rgba(#000, 0.035);
+  }
+
+  > img {
+    display: inline-block;
+    width: 35px;
+  }
+
+  > span {
+    margin-left: 13px;
+  }
+}
+
+.select {
+  position: relative;
+  user-select: none;
+
+  &__head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 200ms ease;
+
+    &:hover,
+    &:focus {
+      background: rgba(255, 255, 255, 0.17);
+    }
+
+    &-icon {
+      fill: currentColor;
+      width: 20px;
+      height: 20px;
+      margin-left: 7px;
+
+      > svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .select-item:hover {
+      background: transparent;
+    }
+  }
+
+  &__body {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 240px;
+    margin-top: 5px;
+    color: var(--text-dark);
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 14px 2px rgba(#000, 0.16);
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    z-index: 20;
+    transition: all 160ms ease-in-out;
+
+    .select--open & {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<app-modal [hasHeader]="false" #modal>
+  <div class="barcode__head">
+    <div class="barcode__head-title">{{ 'BARCODE_SCAN' | translate }}</div>
+    <div class="barcode__head-subtitle">Por favor, escanee un código para continuar</div>
+  </div>
+
+  <div class="barcode__illustration">
+    <svg id="color_line" viewBox="0 0 74 74" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#000000">
+        <path d="m3.27 22.938a.5.5 0 0 1 -.5-.5v-7.927a.5.5 0 0 1 .5-.5h7.93a.5.5 0 0 1 0 1h-7.43v7.427a.5.5 0 0 1 -.5.5z"/>
+        <path d="m71.27 22.938a.5.5 0 0 1 -.5-.5v-7.427h-7.427a.5.5 0 0 1 0-1h7.927a.5.5 0 0 1 .5.5v7.927a.5.5 0 0 1 -.5.5z"/>
+        <path d="m11.2 59.989h-7.93a.5.5 0 0 1 -.5-.5v-7.927a.5.5 0 0 1 1 0v7.427h7.43a.5.5 0 0 1 0 1z"/>
+        <path d="m71.27 59.989h-7.927a.5.5 0 0 1 0-1h7.427v-7.427a.5.5 0 0 1 1 0v7.927a.5.5 0 0 1 -.5.5z"/>
+        <path d="m18.386 19.475h2.355v35.051h-2.355z"/>
+        <path d="m14.915 19.475h1.709v35.051h-1.709z"/>
+        <path d="m34.039 19.475h2.897v35.051h-2.897z"/>
+        <path d="m27.498 19.475h1.292v35.051h-1.292z"/>
+        <path d="m30.186 19.475h1.916v35.051h-1.916z"/>
+        <path d="m9.311 19.475h3.25v35.051h-3.25z"/>
+        <path d="m22.611 19.475h3.203v35.051h-3.203z"/>
+        <path d="m55.424 19.475h2.355v35.051h-2.355z" transform="matrix(-1 0 0 -1 113.202 74)"/>
+        <path d="m59.577 19.475h1.709v35.051h-1.709z" transform="matrix(-1 0 0 -1 120.863 74)"/>
+        <path d="m47.089 19.475h1.292v35.051h-1.292z" transform="matrix(-1 0 0 -1 95.471 74)"/>
+        <path d="m39.186 19.475h1.584v35.051h-1.584z" transform="matrix(-1 0 0 -1 79.956 74)"/>
+        <path d="m43.311 19.475h1.916v35.051h-1.916z" transform="matrix(-1 0 0 -1 88.539 74)"/>
+        <path d="m63.343 19.475h2.76v35.051h-2.76z" transform="matrix(-1 0 0 -1 129.445 74)"/>
+        <path d="m50.068 19.475h3.203v35.051h-3.203z" transform="matrix(-1 0 0 -1 103.34 74)"/>
+      </g>
+
+      <path class="barcode__illustration-redline" d="m35.645 3.514h3.25v66.972h-3.25z" fill="#fe7058" transform="matrix(0 1 -1 0 74.27 -.27)" opacity="0.9" />
+    </svg>
+  </div>
+
+  <form #form class="barcode__form" [ngClass]="{'barcode__form--expanded': formExpanded}" (submit)="onSubmit($event)">
+    <button type="button" class="barcode__button barcode__button--expand" (click)="expandForm()">
+      <span>Introducir código manualmente</span>
+      <span class="barcode__button-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M16.939 7.939L12 12.879 7.061 7.939 4.939 10.061 12 17.121 19.061 10.061z"/></svg>
+      </span>
+    </button>
+
+    <div class="barcode__form-content">
+      <div class="barcode__input barcode__form-input">
+        <input #input type="text" [formControl]="barcode" aria-label="Código de barras" required="">
+
+        <div class="barcode__input-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M16.018,3.815L15.232,8h-4.966l0.716-3.815L9.018,3.815L8.232,8H4v2h3.857l-0.751,4H3v2h3.731l-0.714,3.805l1.965,0.369 L8.766,16h4.966l-0.714,3.805l1.965,0.369L15.766,16H20v-2h-3.859l0.751-4H21V8h-3.733l0.716-3.815L16.018,3.815z M14.106,14H9.141 l0.751-4h4.966L14.106,14z"/></svg>
+        </div>
+      </div>
+
+      <button type="submit" class="barcode__button barcode__button--submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z"/></svg>
+      </button>
+    </div>
+  </form>
+</app-modal>

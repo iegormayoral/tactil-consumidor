@@ -1,0 +1,5 @@
+@mixin theme($variant) {
+  html[data-theme="#{$variant}"] {
+    @content;
+  }
+}
