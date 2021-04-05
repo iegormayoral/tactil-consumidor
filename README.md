@@ -8,5 +8,5 @@
 
 ## Instalación
 
-En primer lugar, y asumiendo que se cumplen todos los pre-requisitos listados en el apartado anterior, se deberá de ejecutar el siguiente comando en la raíz del proyecto:
+Asumiendo que se cumplen todos los pre-requisitos listados en el apartado anterior, se deberá de ejecutar el siguiente comando en la raíz del proyecto:
 `` $ npm install``
