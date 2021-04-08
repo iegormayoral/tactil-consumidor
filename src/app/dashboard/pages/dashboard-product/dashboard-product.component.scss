@@ -22,7 +22,11 @@ carousel ::ng-deep {
  * Generics
  */
 .product {
-  margin: var(--spacing-5) 0 var(--spacing-4);
+  margin: var(--spacing-3) 0 var(--spacing-4);
+
+  @include media-breakpoint-up(lg) {
+    margin-top: var(--spacing-5);
+  }
 }
 
 .product__title {
@@ -340,10 +344,22 @@ carousel ::ng-deep {
 }
 
 /**
+ * Main
+ */
+.product__sidebar {
+}
+
+/**
  * Sidebar
  */
 .product__sidebar {
-  padding-left: 75px;
+  @include media-breakpoint-down(sm) {
+    margin-top: var(--spacing-3);
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-left: 75px;
+  }
 
   .product__qr {
     position: absolute;
@@ -394,6 +410,12 @@ carousel ::ng-deep {
 
   .product__externalLink {
     margin: var(--spacing-05) 0 var(--spacing-05);
+  }
+
+  &-gallery {
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
   }
 }
 

@@ -19,8 +19,10 @@ const screens = {
 
 function createWindow(): BrowserWindow {
 
-  // const size = screen.getPrimaryDisplay().workAreaSize;
-  const size = screens.P1;
+  let size = screen.getPrimaryDisplay().workAreaSize;
+  if (serve) {
+    size = screens.P1;
+  }
 
   // Create the browser window.
   win = new BrowserWindow({

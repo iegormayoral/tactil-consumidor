@@ -1,3 +1,13 @@
+<ng-template #galleryTemplate let-gallery="gallery">
+  <ngb-carousel class="product__gallery">
+    <ng-container *ngFor="let img of gallery">
+      <ng-template ngbSlide>
+        <img [src]="img" alt="Random first slide" class="img-fluid">
+      </ng-template>
+    </ng-container>
+  </ngb-carousel>
+</ng-template>
+
 <div class="product">
   <div class="container">
     <ng-container *ngIf="loading">
@@ -13,17 +23,11 @@
       <app-qr-modal #qrModal [text]="product.urlECM"></app-qr-modal>
 
       <div class="row">
-        <div class="col-xs-20 col-sm-11 col-md-7 product__main">
-          <ngb-carousel class="product__gallery">
-            <ng-container *ngFor="let img of gallery">
-              <ng-template ngbSlide>
-                <img [src]="img" alt="Random first slide" class="img-fluid">
-              </ng-template>
-            </ng-container>
-          </ngb-carousel>
+        <div class="col-xs-12 col-md-7 product__main">
+          <ng-container *ngTemplateOutlet="galleryTemplate;context:{gallery: gallery}"></ng-container>
         </div>
 
-        <div class="col-xs-20 col-sm-9 col-md-5 product__sidebar">
+        <div class="col-xs-12 col-md-5 product__sidebar">
           <div class="product__sidebar-head">
             <div class="product__title">{{product.descart}}</div>
             <div class="product__price">
@@ -41,6 +45,10 @@
                 <span>QR code</span>
               </button>
             </div>
+          </div>
+
+          <div class="product__sidebar-gallery">
+            <ng-container *ngTemplateOutlet="galleryTemplate;context:{gallery: gallery}"></ng-container>
           </div>
 
           <div class="product__block product__sizes">
@@ -105,8 +113,7 @@
         </div>
 
         <div class="product__looks-content">
-          <carousel [cellsToShow]="6" [height]="260" [margin]="100" [freeScroll]="true"
-                    [arrows]="combinations.length > 6">
+          <carousel [cellWidth]="200" [height]="260" [margin]="100" [freeScroll]="true">
             <div class="carousel-cell product__look" *ngFor="let combination of combinations">
               <div class="product__look-image"
                    [style.background-image]="'url(' + combination.imgpath + combination.imagenes[0] + ')'"></div>
