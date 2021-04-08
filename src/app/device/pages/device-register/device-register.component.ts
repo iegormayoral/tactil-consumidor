@@ -41,7 +41,7 @@ export class DeviceRegisterComponent implements OnInit {
     });
   }
 
-  submit($event: Event, force: boolean = false): void {
+  submit($event: Event, force = false): void {
     $event.preventDefault();
     $event.stopPropagation();
 
@@ -79,5 +79,9 @@ export class DeviceRegisterComponent implements OnInit {
     else {
       this.loading = false;
     }
+  }
+
+  cancel(): void {
+    this.alreadyRegistered = false;
   }
 }

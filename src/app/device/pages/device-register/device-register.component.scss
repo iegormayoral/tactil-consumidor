@@ -7,7 +7,6 @@
   background-image: url(https://media.mayoral.com/wcsstore/mayoral/images/Attachment/ropa-infantil-myrl-prehome-v21.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: -100px 0;
 }
 
 .dr-container {
@@ -16,11 +15,12 @@
 }
 
 .dr-brand {
+  flex: 0 0 auto;
   width: 70px;
   height: 70px;
   margin-bottom: var(--spacing-3);
   background-image: var(--icon-primary-svg);
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }

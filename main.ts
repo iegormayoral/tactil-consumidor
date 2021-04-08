@@ -13,9 +13,14 @@ let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
+const screens = {
+  'P1': { width: 960, height: 505 },
+};
+
 function createWindow(): BrowserWindow {
 
-  const size = screen.getPrimaryDisplay().workAreaSize;
+  // const size = screen.getPrimaryDisplay().workAreaSize;
+  const size = screens.P1;
 
   // Create the browser window.
   win = new BrowserWindow({
@@ -23,7 +28,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
-    fullscreen: true,
+    fullscreen: !serve,
     frame: true,
     webPreferences: {
       nodeIntegration: true,
