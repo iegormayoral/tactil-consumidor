@@ -1,6 +1,6 @@
 {
   "name": "tactil-consumidor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aplicación Táctil Consumidor",
   "main": "main.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
     "electron:local": "npm run build:prod && npx electron .",
-    "electron:build": "npm run build:prod && electron-builder build --win --publish=never",
+    "electron:build": "npm run build:prod && electron-builder build --win --publish=onTag",
     "electron:build:publish": "npm run build:prod && GH_TOKEN='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' electron-builder build --win --publish=always",
     "electron:rebuild": "electron-rebuild",
     "test": "ng test --watch=false",
