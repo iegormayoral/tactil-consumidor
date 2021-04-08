@@ -1,8 +1,10 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { exec } from 'child_process';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import * as ElectronLog from 'electron-log';
+import { autoUpdater } from 'electron-updater';
+import * as os from 'os';
 import * as path from 'path';
 import * as url from 'url';
-import { autoUpdater } from 'electron-updater';
-import * as ElectronLog from 'electron-log';
 
 // Assign a logging method for `electron-updater`
 autoUpdater.logger = ElectronLog;
@@ -21,6 +23,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
+    fullscreen: true,
     frame: true,
     webPreferences: {
       nodeIntegration: true,
@@ -55,7 +58,64 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
+  // Attach event listeners
+  attachListeners();
+
   return win;
+}
+
+function attachListeners(): void {
+
+  // Emitted when the application needs to check for the device information.
+  ipcMain.handle('deviceInfo', () => {
+
+    type DeviceInfo = {
+      manufacturer: string
+      model: string
+      name: string
+    };
+
+    return new Promise((resolve, reject) => {
+      if (serve) {
+        const deviceInfo: DeviceInfo = {
+          manufacturer: 'Manufacturer S.A.',
+          model: 'PPC3100',
+          name: 'Test',
+        };
+
+        return resolve(deviceInfo);
+      }
+
+      if (os.platform() === 'win32') {
+
+        // Execute `wmic` on windows
+        exec('wmic computersystem get manufacturer, model, name /value', (err, stdout) => {
+          if (err) {
+            return reject(err.message);
+          }
+
+          const stdoutLines = stdout.toString().trim().split('\n');
+
+          const deviceInfo: DeviceInfo = {
+            manufacturer: null,
+            model: null,
+            name: null,
+          };
+
+          stdoutLines.forEach(line => {
+            const lineArr = line.split('='),
+              prop = lineArr[0].toLowerCase();
+            deviceInfo[prop] = lineArr[1];
+          });
+
+          resolve(deviceInfo);
+        });
+      }
+      else {
+        reject(`Platform "${os.platform()}" not supported.`);
+      }
+    });
+  });
 }
 
 try {

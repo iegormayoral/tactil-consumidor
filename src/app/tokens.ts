@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Lang } from './shared/services/lang/classes/GetLangs';
+import { Lang } from './shared/services/lang/lang';
 import { JwtLogin } from './shared/services/login/classes/JwtLogin';
 
 /**
@@ -82,3 +82,13 @@ export const THEME_STORAGE_KEY = new InjectionToken<string>('THEME_STORAGE_KEY')
  * Tiempo de espera hasta cancelar la petición
  */
 export const HTTP_REQUEST_TIMEOUT = new InjectionToken<number>('HTTP_REQUEST_TIMEOUT');
+
+/**
+ * Información del dispositivo
+ */
+export const DEVICE = new InjectionToken<BehaviorSubject<string>>('DEVICE');
+
+/**
+ * Identificador usado para almacenenar la información del dispositivo
+ */
+export const DEVICE_STORAGE_KEY = new InjectionToken<string>('DEVICE_STORAGE_KEY');

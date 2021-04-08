@@ -1,0 +1,21 @@
+<app-barcode-modal #barcodeModal></app-barcode-modal>
+
+<div class="menu">
+  <div class="menu__inner container">
+    <div (click)="barcodeModal.open()" class="menu__button" tabindex="-1" ripple>
+      <div class="menu__button-label">{{ 'DASHBOARD_HOME.BARCODE_SCAN' | translate }}</div>
+    </div>
+
+    <div class="menu__button" tabindex="-1" ripple>
+      <div class="menu__button-label">Otra opción</div>
+    </div>
+
+    <div class="menu__button" tabindex="-1" ripple>
+      <div class="menu__button-label">Otra opción</div>
+    </div>
+
+    <div class="menu__button" tabindex="-1" ripple>
+      <div class="menu__button-label">Otra opción</div>
+    </div>
+  </div>
+</div>

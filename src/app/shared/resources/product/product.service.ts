@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AUTH_DEFAULT_STOREID, LANG } from '../../../tokens';
+import { AUTH_DEFAULT_STOREID, DEVICE, LANG } from '../../../tokens';
 import { API400Service } from '../../services';
-import { ApiPost } from '../../services/api/classes/Api';
-import { Lang } from '../../services/lang/classes/GetLangs';
+import { APIPost } from '../../services/api/classes/api';
+import { Device } from '../../services/device/device';
+import { Lang } from '../../services/lang/lang';
 import { GetProduct } from './product';
 
 @Injectable({
@@ -14,10 +15,13 @@ export class ProductService {
   constructor(
     private api400Service: API400Service,
     @Inject(AUTH_DEFAULT_STOREID) private defaultStoreId: number,
-    @Inject(LANG) private lang: BehaviorSubject<Lang>
+    @Inject(LANG) private lang: BehaviorSubject<Lang>,
+    @Inject(DEVICE) private device: BehaviorSubject<Device>
   ) { }
 
   getByBarcode(barcode: string): Observable<GetProduct> {
+    const device = this.device.getValue();
+
     const area = 'SHOP';
     const programa = 'CONSPGM03';
     const params = {
@@ -29,14 +33,14 @@ export class ProductService {
           tienda: this.defaultStoreId,
           idioma: this.lang.getValue().idioma,
           codbar: barcode,
-          tip_dev: 'P',
-          cod_dev: 1,
-          uid_dev: '@PRUEBAS@D6D1A5E98E10004AC1DA88E8000000000000000D533877159F4BA10',
+          tip_dev: device.tip_dev,
+          cod_dev: device.cod_dev,
+          uid_dev: device.uid_dev,
         }
       }
     };
 
-    const req = new ApiPost(`${area}/${programa}`, JSON.stringify(params), GetProduct);
+    const req = new APIPost(`${area}/${programa}`, params, GetProduct);
     return this.api400Service.post(req);
   }
 }

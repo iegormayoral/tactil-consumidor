@@ -1,0 +1,74 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-image: url(https://media.mayoral.com/wcsstore/mayoral/images/Attachment/ropa-infantil-myrl-prehome-v21.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -100px 0;
+}
+
+.dr-container {
+  max-width: 390px;
+  margin: 0 auto;
+}
+
+.dr-brand {
+  width: 70px;
+  height: 70px;
+  margin-bottom: var(--spacing-3);
+  background-image: var(--icon-primary-svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dr-form {
+  padding: var(--spacing-3);
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 1px 6px 1px rgba(#000, 0.07);
+
+  label {
+    font-size: var(--font-size-sm);
+    color: rgba(#000, 0.6);
+  }
+
+  .btn {
+    height: 45px;
+  }
+
+  &__alert {
+    margin: 0 calc(var(--spacing-3) * -1);
+    padding: 17px var(--spacing-3);
+    border: 0;
+    border-radius: 0;
+
+    &--warning {
+      box-shadow: inset 4px 0 0 var(--yellow);
+    }
+  }
+
+  &__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-2);
+  }
+
+  &__submit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--spacing-3);
+  }
+}
+
+.dr-note {
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
+  margin-top: var(--spacing-2);
+  text-align: center;
+}

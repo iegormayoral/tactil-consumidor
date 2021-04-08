@@ -1,0 +1,64 @@
+<div class="dr-brand"></div>
+
+<div class="dr-container">
+  <form class="dr-form needs-validation"
+        [ngClass]="{'was-validated': validated}"
+        [formGroup]="form"
+        (ngSubmit)="submit($event)"
+        novalidate
+  >
+    <h2 class="dr-form__title">{{ 'DEVICE_REGISTER.NEW_DEVICE' | translate }}</h2>
+
+    <ng-container *ngIf="alreadyRegistered">
+      <div class="dr-form__alert dr-form__alert--warning">
+        <p>¡Vaya! Al parecer ya existe un dispositivo registrado para esta tienda.</p>
+
+        <p class="mb-4">
+          Si procede a sobrescribir el mismo, actualizará la información con los datos proporcionados en el apartado
+          anterior.
+        </p>
+
+        <div class="d-flex flex-row align-items-stretch justify-content-end">
+          <button type="button" class="btn btn-link">Cancelar</button>
+          <button type="button" class="btn btn-warning" (click)="submit($event, true)">Sobrescribir</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!alreadyRegistered">
+      <h3 class="h5 sr-only">Información general</h3>
+
+      <div class="form-group">
+        <label for="storeId">{{ 'DEVICE_REGISTER.STORE_ID' | translate }}</label>
+        <input type="text" id="storeId" formControlName="storeId" class="form-control" required="required">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="deviceModel">Modelo</label>
+          <input id="deviceModel" formControlName="deviceModel" class="form-control" required="required">
+        </div>
+
+        <div class="form-group col">
+          <label for="deviceType">Tipo</label>
+          <select id="deviceType" formControlName="deviceType" class="form-control" required="required">
+            <option value="">-</option>
+            <option value="P">Pantalla táctil</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="deviceCode">Código del dispositivo</label>
+        <input type="number" id="deviceCode" formControlName="deviceCode" class="form-control" required="required">
+      </div>
+
+      <button type="submit" class="btn btn-block btn-primary dr-form__submit" [ngClass]="{'disabled': loading}">
+        <app-spinner [size]="26" *ngIf="loading"></app-spinner>
+        <span *ngIf="!loading">Registrar dispositivo</span>
+      </button>
+    </ng-container>
+  </form>
+
+  <div class="dr-note">Por favor, registra el dispositivo actual para poder continuar usando la aplicación.</div>
+</div>

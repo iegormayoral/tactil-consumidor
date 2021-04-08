@@ -3,10 +3,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AUTH_DEFAULT_STOREID, LANG, LANG_DEFAULT, LANG_LIST, LANG_STORAGE_KEY } from '../../../tokens';
+import {
+  AUTH_DEFAULT_STOREID,
+  DEVICE,
+  LANG,
+  LANG_DEFAULT,
+  LANG_LIST,
+  LANG_STORAGE_KEY
+} from '~/tokens';
 import { API400Service } from '../api/api400.service';
-import { ApiPost } from '../api/classes/Api';
-import { GetLangs, Lang } from './classes/GetLangs';
+import { APIPost } from '../api/classes/api';
+import { Device } from '../device/device';
+import { GetLangs, Lang } from './lang';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +30,7 @@ export class LangService {
     @Inject(LANG_LIST) private langList: BehaviorSubject<Lang[]>,
     @Inject(LANG_DEFAULT) private langDefault: string,
     @Inject(LANG_STORAGE_KEY) private langStorageKey: string,
+    @Inject(DEVICE) private device: BehaviorSubject<Device>,
   ) {
 
     this.translateService.setDefaultLang(this.langDefault);
@@ -55,6 +64,8 @@ export class LangService {
   }
 
   getLanguages(): Observable<GetLangs> {
+    const device = this.device.getValue();
+
     const programa = 'CONSPGM02';
     const area = 'SHOP';
     const params = {
@@ -64,14 +75,14 @@ export class LangService {
         version: 0,
         body: {
           tienda: this.defaultStoreId,
-          tip_dev: 'P',
-          cod_dev: 1,
-          uid_dev: '@PRUEBAS@D6D1A5E98E10004AC1DA88E8000000000000000D533877159F4BA10',
+          tip_dev: device.tip_dev,
+          cod_dev: device.cod_dev,
+          uid_dev: device.uid_dev,
         }
       }
     };
 
-    const apiPost = new ApiPost(`${area}/${programa}`, JSON.stringify(params), GetLangs);
+    const apiPost = new APIPost(`${area}/${programa}`, params, GetLangs);
     apiPost.isLogin = false;
 
     return this.api400Service.post<GetLangs>(apiPost)

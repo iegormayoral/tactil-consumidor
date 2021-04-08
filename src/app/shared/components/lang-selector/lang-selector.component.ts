@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LANG, LANG_LIST } from '../../../tokens';
 import { LangService } from '../../services';
-import { Lang } from '../../services/lang/classes/GetLangs';
+import { Lang } from '../../services/lang/lang';
 
 @Component({
   selector: 'app-lang-selector',

@@ -7,6 +7,8 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   opacity: 0;
   pointer-events: none;
   z-index: 1000;
@@ -35,7 +37,7 @@
 }
 
 .modal__backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

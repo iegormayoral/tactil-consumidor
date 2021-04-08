@@ -5,7 +5,7 @@ import { catchError, map, timeout } from 'rxjs/operators';
 import { JsonConvert, JsonObject, JsonProperty, OperationMode, ValueCheckingMode } from 'json2typescript';
 import { AppConfig } from '../../../../environments/environment';
 import { HTTP_REQUEST_TIMEOUT } from '../../../tokens';
-import { ApiPost } from './classes/Api';
+import { APIPost } from './classes/api';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +21,19 @@ export class APIService {
    * Devuelve el path de la llamada
    * @param apiPost
    */
-  getAPIPath(apiPost:ApiPost):string {
+  getAPIPath(apiPost: APIPost): string {
     return `${apiPost.path}`;
   }
 
   /**
    * Obtiene el token para la autorization, si la llamada que estamos haciendo no es un login
    */
-  getAuthorizationBearer(apiPost:ApiPost):string|null{
+  getAuthorizationBearer(apiPost: APIPost): string | null {
     if(apiPost.isLogin) return null;
     return null;
   }
 
-  post<T>(apiPost: ApiPost): Observable<T> {
+  post<T>(apiPost: APIPost): Observable<T> {
     // Authorization bearer
     let headersHttp = new HttpHeaders({...AppConfig.Headers});
     const authToken = this.getAuthorizationBearer(apiPost);
@@ -51,7 +51,7 @@ export class APIService {
     // Options
     const options = { headers: headersHttp };
 
-    return this.http.post<T>(apiPost.path, apiPost.body, options)
+    return this.http.post<T>(apiPost.path, JSON.stringify(apiPost.body), options)
       .pipe(
         timeout(this.requestTimeout),
         map(data => this.deserializeJSON(data, apiPost.ClassReference),
@@ -72,6 +72,7 @@ export class APIService {
    * @param json
    * @param ClassReference
    */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   deserializeJSON(json: any, ClassReference: any): any {
     let data: any;
     try {

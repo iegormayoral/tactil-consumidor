@@ -12,6 +12,8 @@ html {
   --blue-light: #{lighten(#0172ea, 47%)};
   --green: #3fb13f;
   --green-dark: #{darken(#3fb13f, 5%)};
+  --yellow: #ffc107;
+  --yellow-dark: #{darken(#ffc107, 5%)};
 
   --primary: var(--blue);
   --text-light: var(--white);

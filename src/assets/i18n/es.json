@@ -1,4 +1,9 @@
 {
-  "hello_world": "Hola!",
-  "BARCODE_SCAN": "Escanear código de barras"
+  "DASHBOARD_HOME": {
+    "BARCODE_SCAN": "Escanear código de barras"
+  },
+  "DEVICE_REGISTER": {
+    "NEW_DEVICE": "Nuevo dispositivo",
+    "STORE_ID": "ID de tienda"
+  }
 }

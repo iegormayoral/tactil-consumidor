@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
+import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
-import { HTTP_REQUEST_TIMEOUT, TOKEN_JWT } from '../../../tokens';
+import { HTTP_REQUEST_TIMEOUT, TOKEN_JWT } from '~/tokens';
 import { APIService } from './api.service';
 import { JwtLogin } from '../login/classes/JwtLogin';
 import { AppConfig } from '../../../../environments/environment';
-import { ApiPost } from './classes/Api';
+import { APIPost } from './classes/api';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class API400Service extends APIService {
 
   constructor(
     public http: HttpClient,
+    public logger: NGXLogger,
     @Inject(HTTP_REQUEST_TIMEOUT) public requestTimeout: number,
     @Inject(TOKEN_JWT) public token: BehaviorSubject<JwtLogin>,
   ) {
@@ -31,7 +33,7 @@ export class API400Service extends APIService {
    * si esta caducado el access y el refresh devuelve null
    * En las peticiones de login no envia ningún token
    */
-  getAuthorizationBearer(apiPost: ApiPost): string | null {
+  getAuthorizationBearer(apiPost: APIPost): string | null {
     const token = this.token.getValue();
     const helper = new JwtHelperService();
 
@@ -45,12 +47,12 @@ export class API400Service extends APIService {
 
       if (isExpired) {
         // Si ha expirado no podemos hacer nada
-        console.log('Refresh Token Expired ');
+        this.logger.debug('JWT Refresh Token expired!');
         return null;
       }
       else {
         // Si no ha expirado el token refresh entonces podemos devolvemos este token
-        console.log('Refresh Token Not Expired ' + expirationDate.toLocaleTimeString());
+        this.logger.debug(`JWT Refresh Token not expired (exp: ${expirationDate.toLocaleTimeString()})`);
         return token.jwtrefresh;
       }
     }
@@ -70,11 +72,13 @@ export class API400Service extends APIService {
 
       // If the jwt token is expired, we use the refresh token
       if (!isExpired) {
-        console.log('Access Token NOT Expired ' + expirationDate.toLocaleTimeString());
+        // Para evitar saturar la consola de logs,
+        // deshabilitamos el log de expiración cuando el token sea válido.
+        // this.logger.debug(`JWT Token not expired (exp: ${expirationDate.toLocaleTimeString()})`);
         return token.jwt;
       }
       else {
-        console.log('Access Token Expired ' );
+        this.logger.debug('JWT Token expired!');
         return null;
       }
     }
@@ -84,7 +88,7 @@ export class API400Service extends APIService {
    * Devuelve la url del servicio rest
    * @param apiPost
    */
-  getAPIPath(apiPost: ApiPost): string {
+  getAPIPath(apiPost: APIPost): string {
     return `${AppConfig.URL_API400}/${apiPost.path}`;
   }
 

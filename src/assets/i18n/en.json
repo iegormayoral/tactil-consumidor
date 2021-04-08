@@ -1,4 +1,9 @@
 {
-  "hello_world": "Hello, World!",
-  "BARCODE_SCAN": "Barcode scan"
+  "DASHBOARD_HOME": {
+    "BARCODE_SCAN": "Barcode scan"
+  },
+  "DEVICE_REGISTER": {
+    "NEW_DEVICE": "New device",
+    "STORE_ID": "Store ID"
+  }
 }

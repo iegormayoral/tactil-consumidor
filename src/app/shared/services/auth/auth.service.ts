@@ -3,11 +3,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { JsonConvert } from 'json2typescript';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { log } from 'util';
-
 import { TOKEN_JWT, TOKEN_REFRESH_TIME, TOKEN_STORAGE_KEY } from '../../../tokens';
 import { API400Service } from '../api/api400.service';
-import { ApiPost } from '../api/classes/Api';
+import { APIPost } from '../api/classes/api';
 import { JWTRefresh } from '../api/classes/JWTRefresh';
 import { JwtLogin } from '../login/classes/JwtLogin';
 import Timeout = NodeJS.Timeout;
@@ -159,7 +157,7 @@ export class AuthService {
 
     // Realizamos la petición
     // marcando `isLogin` y `isRefresh` para refrescar el token actual.
-    const apiPostRefresh = new ApiPost('srest/JWTRPGM00', JSON.stringify(params), JWTRefresh);
+    const apiPostRefresh = new APIPost('srest/JWTRPGM00', params, JWTRefresh);
     apiPostRefresh.isLogin = true;
     apiPostRefresh.isRefresh = true;
 

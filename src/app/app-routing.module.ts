@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { ProductComponent } from './pages/product/product.component';
+import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
+import { DeviceRoutingModule } from './device/device-routing.module';
 import { PageNotFoundComponent } from './shared/components';
 
 const routes: Routes = [
@@ -9,14 +9,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'product/:barcode',
-    component: ProductComponent
   },
   {
     path: '**',
@@ -27,6 +19,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    DashboardRoutingModule,
+    DeviceRoutingModule,
   ],
   exports: [RouterModule]
 })

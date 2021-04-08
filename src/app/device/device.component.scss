@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+app-lang-selector {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: var(--spacing-2);
+}

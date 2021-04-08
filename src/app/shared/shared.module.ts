@@ -12,6 +12,7 @@ import {
   LangSelectorComponent,
   ModalComponent,
   QRComponent,
+  SpinnerComponent,
 } from './components';
 import { WebviewDirective, RippleDirective } from './directives';
 import { PricePipe } from './pipes';
@@ -24,27 +25,32 @@ import {
   ThemeService,
 } from './services';
 
+
+
 @NgModule({
   imports: [CommonModule, BrowserAnimationsModule, TranslateModule, FormsModule, RouterModule, ToastrModule.forRoot()],
   declarations: [
     WebviewDirective,
     RippleDirective,
+    PricePipe,
     PageNotFoundComponent,
     HeaderComponent,
     LangSelectorComponent,
     ModalComponent,
-    PricePipe,
     QRComponent,
+    SpinnerComponent,
   ],
   exports: [
     TranslateModule,
     FormsModule,
+    PricePipe,
     WebviewDirective,
     RippleDirective,
     HeaderComponent,
+    LangSelectorComponent,
     ModalComponent,
     QRComponent,
-    PricePipe,
+    SpinnerComponent,
   ],
   providers: [
     LoginService,

@@ -6,7 +6,7 @@ import { TOKEN_JWT } from '../../../tokens';
 import { API400Service } from '../api/api400.service';
 import { AuthService } from '../auth/auth.service';
 import { GetLogin } from './classes/GetLogin';
-import { ApiPost } from '../api/classes/Api';
+import { APIPost } from '../api/classes/api';
 import { JwtLogin } from './classes/JwtLogin';
 
 @Injectable({
@@ -43,7 +43,7 @@ export class LoginService {
 
     // Realizamos la petición
     // y marcamos que es un login para que no agregue la cabecera de Autenticación.
-    const apiPost = new ApiPost(`${area}/${programa}`, JSON.stringify(params), GetLogin);
+    const apiPost = new APIPost(`${area}/${programa}`, params, GetLogin);
     apiPost.isLogin = true;
 
     return this.api400Service.post<GetLogin>(apiPost)

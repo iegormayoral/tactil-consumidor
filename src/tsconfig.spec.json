@@ -6,7 +6,11 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "baseUrl": "",
+    "paths": {
+      "~/*": ["app/*"],
+    }
   },
   "files": [
     "test.ts",
