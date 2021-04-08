@@ -1,6 +1,6 @@
 {
   "name": "tactil-consumidor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Táctil Consumidor",
   "main": "main.js",
   "scripts": {
