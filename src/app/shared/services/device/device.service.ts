@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { APIRequest } from '@desarrollo_web/ng-services';
 import { ElectronService } from 'ngx-electron';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { AUTH_DEFAULT_STOREID, DEVICE, DEVICE_STORAGE_KEY } from '~/tokens';
 import { API400Service } from '../api/api400.service';
-import { APIPost } from '../api/classes/api';
 import { CheckDevice, Device, DeviceInfo, RegisterDevice } from './device';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class DeviceService {
       .pipe(
         mergeMap((deviceInfo) => {
 
-          const device = this.device.value;
+          const device = this.device.getValue();
           device.info_dev = deviceInfo;
           this.device.next(device);
 
@@ -51,7 +51,7 @@ export class DeviceService {
   }
 
   register(storeId: number, deviceCode: number, deviceType: string, force = false): Observable<boolean> {
-    const device = this.device.value;
+    const device = this.device.getValue();
 
     this.logger.log(`Registering device (storeId: ${storeId}, deviceCode: ${deviceCode}, deviceModel: ${device.info_dev.model})`);
 
@@ -72,15 +72,15 @@ export class DeviceService {
       }
     };
 
-    const apiPost = new APIPost(`${area}/${programa}`, params, RegisterDevice);
-    return this.api400Service.post<RegisterDevice>(apiPost)
+    const request = new APIRequest(`${area}/${programa}`, params, RegisterDevice);
+    return this.api400Service.post<RegisterDevice>(request)
       .pipe(
         mergeMap(data => {
           if (!data.allOk()) {
             return throwError(data);
           }
 
-          const device = this.device.value;
+          const device = this.device.getValue();
           device.uid_dev = data.datos.uid_dev;
           device.storeId = storeId;
           this.device.next(device);
@@ -103,8 +103,6 @@ export class DeviceService {
       return of(false);
     }
 
-    console.log('yep', device);
-
     const programa = 'REGPGM01';
     const area = 'SHOP';
     const params = {
@@ -121,8 +119,8 @@ export class DeviceService {
       }
     };
 
-    const apiPost = new APIPost(`${area}/${programa}`, params, CheckDevice);
-    return this.api400Service.post<CheckDevice>(apiPost)
+    const request = new APIRequest(`${area}/${programa}`, params, CheckDevice);
+    return this.api400Service.post<CheckDevice>(request)
       .pipe(
         map(data => data.allOk()),
         catchError((err: Response) => {
@@ -146,7 +144,8 @@ export class DeviceService {
   }
 
   saveDevice(): void {
-    localStorage.setItem(this.deviceStorageKey, JSON.stringify(this.device.value));
+    const device = this.device.getValue();
+    localStorage.setItem(this.deviceStorageKey, JSON.stringify(device));
   }
 
   getInfo(): Observable<DeviceInfo> {

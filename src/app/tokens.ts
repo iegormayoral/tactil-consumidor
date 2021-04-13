@@ -4,6 +4,11 @@ import { Lang } from './shared/services/lang/lang';
 import { JwtLogin } from './shared/services/login/classes/JwtLogin';
 
 /**
+ * Exportamos algunos tokens de nuestros servicios compartidos
+ */
+export { API_HTTP_HEADERS, API_HTTP_TIMEOUT } from '@desarrollo_web/ng-services';
+
+/**
  * Entorno de la aplicación
  */
 export const APP_ENV = new InjectionToken<string>('APP_ENV');
@@ -89,6 +94,6 @@ export const HTTP_REQUEST_TIMEOUT = new InjectionToken<number>('HTTP_REQUEST_TIM
 export const DEVICE = new InjectionToken<BehaviorSubject<string>>('DEVICE');
 
 /**
- * Identificador usado para almacenenar la información del dispositivo
+ * Identificador usado para almacenar la información del dispositivo
  */
 export const DEVICE_STORAGE_KEY = new InjectionToken<string>('DEVICE_STORAGE_KEY');

@@ -1,7 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
+import { ElectronService } from 'ngx-electron';
 import { mergeMap } from 'rxjs/operators';
 import { AuthService, DeviceService, LangService, LoginService, ThemeService } from './shared/services';
-import { AUTH_DEFAULT_PASSWORD, AUTH_DEFAULT_STOREID } from './tokens';
+import { APP_VERSION, AUTH_DEFAULT_PASSWORD, AUTH_DEFAULT_STOREID } from './tokens';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,10 @@ export class AppInitService {
     private langService: LangService,
     private themeService: ThemeService,
     private deviceService: DeviceService,
+    private electronService: ElectronService,
     @Inject(AUTH_DEFAULT_STOREID) private defaultStoreID: number,
     @Inject(AUTH_DEFAULT_PASSWORD) private defaultPassword: string,
+    @Inject(APP_VERSION) private appVersion: string,
   ) { }
 
   init(): Promise<boolean> {
@@ -25,18 +28,21 @@ export class AppInitService {
 
     return new Promise((resolve) => {
 
-      // Realizamos `login` del usuario y obtenemos
-      // los idiomas disponibles seguidamente.
+      // Autenticamos el usuario
       this.loginService.login(this.defaultStoreID, this.defaultPassword)
         .pipe(
-          mergeMap(() => this.langService.getLanguages()),
+          // Comprobamos el dispositivo
           mergeMap(() => this.deviceService.checkOrRedirect()),
+          // Obtenemos los idiomas disponibles
+          mergeMap(() => this.langService.getLanguages()),
         )
         .subscribe(() => {
 
           // Asignamos el idioma
           const lang = this.langService.getPreferredLang();
-          this.langService.setLang(lang);
+          if (lang) {
+            this.langService.setLang(lang);
+          }
 
           resolve(true);
         });

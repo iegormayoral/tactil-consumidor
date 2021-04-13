@@ -1,4 +1,3 @@
-export * from './api/api.service';
 export * from './api/api400.service';
 export * from './login/login.service';
 export * from './auth/auth.service';

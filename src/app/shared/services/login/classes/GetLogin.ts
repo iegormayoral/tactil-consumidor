@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { JsonToObject } from '../../api/api.service';
+import { JsonToObject } from '~/shared/services/api/classes/JsonToObject';
 import { JwtLogin } from './JwtLogin';
 
 @JsonObject('GetLogin')

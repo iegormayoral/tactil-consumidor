@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, remote, screen } from 'electron';
 import * as ElectronLog from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 import * as os from 'os';
@@ -30,7 +30,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
-    fullscreen: !serve,
+    fullscreen: false,
     frame: true,
     webPreferences: {
       nodeIntegration: true,
@@ -122,6 +122,10 @@ function attachListeners(): void {
         reject(`Platform "${os.platform()}" not supported.`);
       }
     });
+  });
+
+  ipcMain.handle('getVersion', () => {
+    return remote.app.getVersion();
   });
 }
 

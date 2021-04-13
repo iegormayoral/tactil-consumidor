@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
+import { APIRequest } from '@desarrollo_web/ng-services';
+import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { TOKEN_JWT } from '../../../tokens';
+import { TOKEN_JWT } from '~/tokens';
 import { API400Service } from '../api/api400.service';
 import { AuthService } from '../auth/auth.service';
 import { GetLogin } from './classes/GetLogin';
-import { APIPost } from '../api/classes/api';
 import { JwtLogin } from './classes/JwtLogin';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class LoginService {
   constructor(
     private api400Service: API400Service,
     private authService: AuthService,
+    private logger: NGXLogger,
     @Inject(TOKEN_JWT) private token: BehaviorSubject<JwtLogin>,
   ) { }
 
@@ -43,15 +45,15 @@ export class LoginService {
 
     // Realizamos la petición
     // y marcamos que es un login para que no agregue la cabecera de Autenticación.
-    const apiPost = new APIPost(`${area}/${programa}`, params, GetLogin);
-    apiPost.isLogin = true;
+    const request = new APIRequest(`${area}/${programa}`, params, GetLogin);
+    request.isLogin = true;
 
-    return this.api400Service.post<GetLogin>(apiPost)
+    return this.api400Service.post<GetLogin>(request)
       .pipe(
         map(data => {
 
           if (!data.allOk()) {
-            console.log(`Error - ${data.getErrorMessage()}`);
+            this.logger.error('Login error', data.getErrorMessage());
             this.authService.setToken(null);
           }
           else {

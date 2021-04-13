@@ -1,5 +1,7 @@
 {
-  "productName": "tactil-consumidor",
+  "productName": "Táctil Consumidor",
+  "copyright": "Mayoral Moda Infantil S.A.U.",
+  "appId": "com.mayoral.tactil-consumidor",
   "directories": {
     "output": "release/"
   },
@@ -27,10 +29,7 @@
     "target": [
       {
         "target": "nsis",
-        "arch": [
-          "x64",
-          "arm64"
-        ]
+        "arch": "x64"
       }
     ]
   },

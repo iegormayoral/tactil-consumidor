@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
+import { APIRequest } from '@desarrollo_web/ng-services';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AUTH_DEFAULT_STOREID, DEVICE, LANG } from '../../../tokens';
+import { AUTH_DEFAULT_STOREID, DEVICE, LANG } from '~/tokens';
 import { API400Service } from '../../services';
-import { APIPost } from '../../services/api/classes/api';
 import { Device } from '../../services/device/device';
 import { Lang } from '../../services/lang/lang';
 import { GetProduct } from './product';
@@ -40,7 +40,7 @@ export class ProductService {
       }
     };
 
-    const req = new APIPost(`${area}/${programa}`, params, GetProduct);
-    return this.api400Service.post(req);
+    const request = new APIRequest(`${area}/${programa}`, params, GetProduct);
+    return this.api400Service.post(request);
   }
 }

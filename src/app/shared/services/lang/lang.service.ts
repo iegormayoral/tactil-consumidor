@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
+import { APIRequest } from '@desarrollo_web/ng-services';
 import { TranslateService } from '@ngx-translate/core';
 import { NGXLogger } from 'ngx-logger';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   AUTH_DEFAULT_STOREID,
@@ -12,7 +13,6 @@ import {
   LANG_STORAGE_KEY
 } from '~/tokens';
 import { API400Service } from '../api/api400.service';
-import { APIPost } from '../api/classes/api';
 import { Device } from '../device/device';
 import { GetLangs, Lang } from './lang';
 
@@ -65,6 +65,9 @@ export class LangService {
 
   getLanguages(): Observable<GetLangs> {
     const device = this.device.getValue();
+    if (!device) {
+      return of(null);
+    }
 
     const programa = 'CONSPGM02';
     const area = 'SHOP';
@@ -82,10 +85,10 @@ export class LangService {
       }
     };
 
-    const apiPost = new APIPost(`${area}/${programa}`, params, GetLangs);
-    apiPost.isLogin = false;
+    const request = new APIRequest(`${area}/${programa}`, params, GetLangs);
+    request.isLogin = false;
 
-    return this.api400Service.post<GetLangs>(apiPost)
+    return this.api400Service.post<GetLangs>(request)
       .pipe(
         map(data => {
           if (data.allOk()) {

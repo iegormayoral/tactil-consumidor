@@ -19,7 +19,6 @@ import { PricePipe } from './pipes';
 import { ProductService } from './resources';
 import {
   API400Service,
-  APIService,
   LangService,
   LoginService,
   ThemeService,
@@ -54,7 +53,6 @@ import {
   ],
   providers: [
     LoginService,
-    APIService,
     API400Service,
     LoginService,
     ThemeService,

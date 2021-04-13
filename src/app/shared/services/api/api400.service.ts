@@ -3,11 +3,10 @@ import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
-import { HTTP_REQUEST_TIMEOUT, TOKEN_JWT } from '~/tokens';
-import { APIService } from './api.service';
+import { TOKEN_JWT } from '~/tokens';
+import { API_HTTP_HEADERS, API_HTTP_TIMEOUT, APIRequest, APIService, Headers } from '@desarrollo_web/ng-services';
 import { JwtLogin } from '../login/classes/JwtLogin';
 import { AppConfig } from '../../../../environments/environment';
-import { APIPost } from './classes/api';
 
 
 @Injectable({
@@ -21,10 +20,11 @@ export class API400Service extends APIService {
   constructor(
     public http: HttpClient,
     public logger: NGXLogger,
-    @Inject(HTTP_REQUEST_TIMEOUT) public requestTimeout: number,
+    @Inject(API_HTTP_TIMEOUT) public httpTimeout: number,
+    @Inject(API_HTTP_HEADERS) public httpHeaders: Headers,
     @Inject(TOKEN_JWT) public token: BehaviorSubject<JwtLogin>,
   ) {
-    super(http, requestTimeout);
+    super(http, httpTimeout, httpHeaders);
   }
 
   /**
@@ -33,13 +33,13 @@ export class API400Service extends APIService {
    * si esta caducado el access y el refresh devuelve null
    * En las peticiones de login no envia ningún token
    */
-  getAuthorizationBearer(apiPost: APIPost): string | null {
+  getAuthorizationBearer(request: APIRequest): string | null {
     const token = this.token.getValue();
     const helper = new JwtHelperService();
 
     // Si estamos ejecutando una llamada para renovar el token, tenemos que meter en el
     // las cabeceras el token refresh
-    if (apiPost.isRefresh) {
+    if (request.isRefresh) {
 
       // Si estamos refrescando y el token refresh ha caducado
       const isExpired = helper.isTokenExpired(token.jwtrefresh);
@@ -60,7 +60,7 @@ export class API400Service extends APIService {
     // - Llamada normal con auntenticación
     // - LLamada de login, si es de login no hace falta el token access asi que devolvemos null
     else {
-      if (apiPost.isLogin) return '';
+      if (request.isLogin) return '';
 
       // Verificamos si hace falta refrescar
       const expires = helper.getTokenExpirationDate(token.jwt);
@@ -86,10 +86,9 @@ export class API400Service extends APIService {
 
   /**
    * Devuelve la url del servicio rest
-   * @param apiPost
    */
-  getAPIPath(apiPost: APIPost): string {
-    return `${AppConfig.URL_API400}/${apiPost.path}`;
+  getAPIPath(request: APIRequest): string {
+    return `${AppConfig.URL_API400}/${request.path}`;
   }
 
 }

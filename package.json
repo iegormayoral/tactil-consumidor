@@ -22,7 +22,8 @@
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "bump": "npm version patch"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
   "dependencies": {
     "@angular/animations": "11.2.7",
     "@auth0/angular-jwt": "5.0.2",
+    "@desarrollo_web/ng-services": "0.0.4",
     "@ng-bootstrap/ng-bootstrap": "9.1.0",
     "angular-responsive-carousel": "2.0.2",
     "awesome-qr": "2.1.4-rc.0",
@@ -115,5 +117,6 @@
   },
   "browserslist": [
     "chrome 83"
-  ]
+  ],
+  "author": "Mayoral Moda Infantil S.A.U."
 }

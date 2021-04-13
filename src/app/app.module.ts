@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgServicesModule } from '@desarrollo_web/ng-services';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxElectronModule } from 'ngx-electron';
@@ -19,6 +20,8 @@ import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DeviceModule } from './device/device.module';
 import {
+  API_HTTP_HEADERS,
+  API_HTTP_TIMEOUT,
   APP_ENV,
   APP_VERSION,
   AUTH_DEFAULT_PASSWORD,
@@ -45,11 +48,6 @@ export function AppInitFactory(appInitService: AppInitService) {
   return (): Promise<boolean> => appInitService.init();
 }
 
-const device = new Device();
-device.uid_dev = '@PRUEBAS@D6D1A5E98E10004AC1DA88E8000000000000000D533877159F4BA10';
-device.tip_dev = 'P';
-device.cod_dev = 1;
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -72,6 +70,9 @@ device.cod_dev = 1;
       timestampFormat: 'HH:mm:ss',
     }),
 
+    // Local modules
+    NgServicesModule,
+
     // App modules
     SharedModule,
     DashboardModule,
@@ -80,10 +81,10 @@ device.cod_dev = 1;
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: AppInitFactory, deps: [AppInitService], multi: true },
-    { provide: APP_VERSION, useValue: process.env.npm_package_version },
+    { provide: APP_VERSION, useValue: '0.0.0' },
     { provide: APP_ENV, useValue: AppConfig.environment },
     { provide: LANG, useValue: new BehaviorSubject<Lang>(null) },
-    { provide: LANG_LIST, useValue: new BehaviorSubject<Lang[]>(null) },
+    { provide: LANG_LIST, useValue: new BehaviorSubject<Lang[]>([]) },
     { provide: LANG_DEFAULT, useValue: 'en' },
     { provide: LANG_STORAGE_KEY, useValue: 'lang' },
     { provide: THEME, useValue: new BehaviorSubject<string>(null) },
@@ -95,8 +96,9 @@ device.cod_dev = 1;
     { provide: TOKEN_STORAGE_KEY, useValue: 'access_token' },
     { provide: AUTH_DEFAULT_STOREID, useValue: 501 },
     { provide: AUTH_DEFAULT_PASSWORD, useValue: '7759B882YT' },
-    { provide: HTTP_REQUEST_TIMEOUT, useValue: 15000 },
-    { provide: DEVICE, useValue: new BehaviorSubject<Device>(device) },
+    { provide: API_HTTP_TIMEOUT, useValue: 15000 },
+    { provide: API_HTTP_HEADERS, useValue: {} },
+    { provide: DEVICE, useValue: new BehaviorSubject<Device>(new Device()) },
     { provide: DEVICE_STORAGE_KEY, useValue: 'device' },
   ],
   bootstrap: [AppComponent]

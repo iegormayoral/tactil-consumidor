@@ -27,7 +27,7 @@ export class DeviceRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const device = this.deviceService.device.value;
+    const device = this.deviceService.device.getValue();
 
     this.form = new FormGroup({
       // eslint-disable-next-line @typescript-eslint/unbound-method

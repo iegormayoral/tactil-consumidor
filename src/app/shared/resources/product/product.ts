@@ -1,5 +1,5 @@
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { JsonToObject } from '../../services';
+import { JsonToObject } from '~/shared/services/api/classes/JsonToObject';
 
 @JsonObject('ProductColor')
 export class ProductColor {
