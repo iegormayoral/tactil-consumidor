@@ -5,7 +5,6 @@ import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject } from 'rxjs';
 import { ModalComponent } from '~/shared/components';
 import { ProductService } from '~/shared/resources';
-import { API400Service } from '~/shared/services';
 import { Lang } from '~/shared/services/lang/lang';
 import { AUTH_DEFAULT_STOREID, LANG } from '~/tokens';
 
@@ -29,7 +28,6 @@ export class BarcodeModalComponent implements OnInit {
 
   constructor(
     private logger: NGXLogger, private router: Router,
-    private api400Service: API400Service,
     private productService: ProductService,
     @Inject(AUTH_DEFAULT_STOREID) private defaultStoreId: number,
     @Inject(LANG) private lang: BehaviorSubject<Lang>) { }

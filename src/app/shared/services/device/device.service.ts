@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { APIRequest } from '@desarrollo_web/ng-services';
+import { APIRequest, APIService } from '@desarrollo_web/ng-services';
 import { ElectronService } from 'ngx-electron';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { AUTH_DEFAULT_STOREID, DEVICE, DEVICE_STORAGE_KEY } from '~/tokens';
-import { API400Service } from '../api/api400.service';
 import { CheckDevice, Device, DeviceInfo, RegisterDevice } from './device';
 
 @Injectable({
@@ -15,10 +14,10 @@ import { CheckDevice, Device, DeviceInfo, RegisterDevice } from './device';
 export class DeviceService {
 
   constructor(
-    private api400Service: API400Service,
-    private electronService: ElectronService,
+    private api: APIService,
     private logger: NGXLogger,
     private router: Router,
+    private electronService: ElectronService,
     @Inject(DEVICE) public device: BehaviorSubject<Device>,
     @Inject(DEVICE_STORAGE_KEY) public deviceStorageKey: string,
     @Inject(AUTH_DEFAULT_STOREID) public defaultStoreId: number,
@@ -73,7 +72,7 @@ export class DeviceService {
     };
 
     const request = new APIRequest(`${area}/${programa}`, params, RegisterDevice);
-    return this.api400Service.post<RegisterDevice>(request)
+    return this.api.post<RegisterDevice>(request)
       .pipe(
         mergeMap(data => {
           if (!data.allOk()) {
@@ -83,6 +82,8 @@ export class DeviceService {
           const device = this.device.getValue();
           device.uid_dev = data.datos.uid_dev;
           device.storeId = storeId;
+          device.cod_dev = deviceCode;
+          device.tip_dev = deviceType;
           this.device.next(device);
 
           this.saveDevice();
@@ -103,6 +104,8 @@ export class DeviceService {
       return of(false);
     }
 
+    console.log('check', device);
+
     const programa = 'REGPGM01';
     const area = 'SHOP';
     const params = {
@@ -120,7 +123,7 @@ export class DeviceService {
     };
 
     const request = new APIRequest(`${area}/${programa}`, params, CheckDevice);
-    return this.api400Service.post<CheckDevice>(request)
+    return this.api.post<CheckDevice>(request)
       .pipe(
         map(data => data.allOk()),
         catchError((err: Response) => {
@@ -135,7 +138,7 @@ export class DeviceService {
     if (data) {
       try {
         data = JSON.parse(data);
-        return this.api400Service.deserializeJSON(data, Device);
+        return this.api.deserializeJSON(data, Device);
       } catch(e) {
         // eslint-disable-line no-empty
       }
@@ -152,7 +155,7 @@ export class DeviceService {
     const $promise = this.electronService.ipcRenderer.invoke('deviceInfo');
     return from($promise)
       .pipe(
-        map(data => this.api400Service.deserializeJSON(data, DeviceInfo)),
+        map(data => this.api.deserializeJSON(data, DeviceInfo)),
         catchError((err: Response) => {
           this.logger.error('An error has ocurred while retrieving the device information', err);
           return of(null);

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { mergeMap } from 'rxjs/operators';
-import { AuthService, DeviceService, LangService, LoginService, ThemeService } from './shared/services';
+import { DeviceService, LangService, LoginService, ThemeService } from './shared/services';
 import { APP_VERSION, AUTH_DEFAULT_PASSWORD, AUTH_DEFAULT_STOREID } from './tokens';
 
 @Injectable({
@@ -10,7 +10,6 @@ import { APP_VERSION, AUTH_DEFAULT_PASSWORD, AUTH_DEFAULT_STOREID } from './toke
 export class AppInitService {
 
   constructor(
-    private authService: AuthService,
     private loginService: LoginService,
     private langService: LangService,
     private themeService: ThemeService,

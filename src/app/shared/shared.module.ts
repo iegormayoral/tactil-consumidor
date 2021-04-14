@@ -18,7 +18,6 @@ import { WebviewDirective, RippleDirective } from './directives';
 import { PricePipe } from './pipes';
 import { ProductService } from './resources';
 import {
-  API400Service,
   LangService,
   LoginService,
   ThemeService,
@@ -52,8 +51,6 @@ import {
     SpinnerComponent,
   ],
   providers: [
-    LoginService,
-    API400Service,
     LoginService,
     ThemeService,
     LangService,

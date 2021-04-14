@@ -1,5 +1,5 @@
+import { APIResponse } from '@desarrollo_web/ng-services';
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { JsonToObject } from '~/shared/services/api/classes/JsonToObject';
 
 @JsonObject('DeviceInfo')
 export class DeviceInfo {
@@ -51,12 +51,12 @@ export class DeviceId {
 }
 
 @JsonObject('RegisterDevice')
-export class RegisterDevice extends JsonToObject {
+export class RegisterDevice extends APIResponse {
   @JsonProperty('datos', DeviceId, true)
   datos: DeviceId = undefined;
 }
 
 @JsonObject('CheckDevice')
-export class CheckDevice extends JsonToObject {
+export class CheckDevice extends APIResponse {
   // ..
 }

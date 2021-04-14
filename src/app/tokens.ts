@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Lang } from './shared/services/lang/lang';
-import { JwtLogin } from './shared/services/login/classes/JwtLogin';
 
 /**
  * Exportamos algunos tokens de nuestros servicios compartidos
@@ -17,21 +16,6 @@ export const APP_ENV = new InjectionToken<string>('APP_ENV');
  * Versión de la aplicación
  */
 export const APP_VERSION = new InjectionToken<string>('APP_VERSION');
-
-/**
- * Token del usuario
- */
-export const TOKEN_JWT = new InjectionToken<BehaviorSubject<JwtLogin>>('TOKEN_JWT');
-
-/**
- * Tiempo de refresco del token
- */
-export const TOKEN_REFRESH_TIME = new InjectionToken<number>('TOKEN_REFRESH_TIME');
-
-/**
- * Identificador usado para almacenar el token
- */
-export const TOKEN_STORAGE_KEY = new InjectionToken<string>('TOKEN_STORAGE_KEY');
 
 /**
  * ID de autentificación por defecto de la tienda
@@ -82,11 +66,6 @@ export const THEME_LIST = new InjectionToken<string[]>('THEME_LIST');
  * Identificador usado para almacenar el tema
  */
 export const THEME_STORAGE_KEY = new InjectionToken<string>('THEME_STORAGE_KEY');
-
-/**
- * Tiempo de espera hasta cancelar la petición
- */
-export const HTTP_REQUEST_TIMEOUT = new InjectionToken<number>('HTTP_REQUEST_TIMEOUT');
 
 /**
  * Información del dispositivo

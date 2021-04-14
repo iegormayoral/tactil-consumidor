@@ -1,14 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
-import { APIRequest } from '@desarrollo_web/ng-services';
+import { AuthService, APIService, APIRequest, JWTResponse, JWTToken, TOKEN_JWT } from '@desarrollo_web/ng-services';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { TOKEN_JWT } from '~/tokens';
-import { API400Service } from '../api/api400.service';
-import { AuthService } from '../auth/auth.service';
-import { GetLogin } from './classes/GetLogin';
-import { JwtLogin } from './classes/JwtLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +10,15 @@ import { JwtLogin } from './classes/JwtLogin';
 export class LoginService {
 
   constructor(
-    private api400Service: API400Service,
-    private authService: AuthService,
+    private api: APIService,
     private logger: NGXLogger,
-    @Inject(TOKEN_JWT) private token: BehaviorSubject<JwtLogin>,
+    private authService: AuthService,
+    @Inject(TOKEN_JWT) private token: BehaviorSubject<JWTToken>,
   ) { }
 
-  login(tienda: number, password: string): Observable<GetLogin> {
+  login(tienda: number, password: string): Observable<JWTResponse> {
     if (this.authService.isLoggedIn()) {
-      const data = new GetLogin();
+      const data = new JWTResponse();
       data.datos = this.token.getValue();
       return of(data);
     }
@@ -45,10 +39,10 @@ export class LoginService {
 
     // Realizamos la petición
     // y marcamos que es un login para que no agregue la cabecera de Autenticación.
-    const request = new APIRequest(`${area}/${programa}`, params, GetLogin);
+    const request = new APIRequest(`${area}/${programa}`, params, JWTResponse);
     request.isLogin = true;
 
-    return this.api400Service.post<GetLogin>(request)
+    return this.api.post<JWTResponse>(request)
       .pipe(
         map(data => {
 

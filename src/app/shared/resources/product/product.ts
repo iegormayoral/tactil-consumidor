@@ -1,5 +1,5 @@
+import { APIResponse } from '@desarrollo_web/ng-services';
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { JsonToObject } from '~/shared/services/api/classes/JsonToObject';
 
 @JsonObject('ProductColor')
 export class ProductColor {
@@ -129,7 +129,7 @@ export class Product {
 }
 
 @JsonObject('GetProduct')
-export class GetProduct extends JsonToObject {
+export class GetProduct extends APIResponse {
   @JsonProperty('datos', Product, true)
   datos: Product = undefined;
 }

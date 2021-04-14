@@ -1,5 +1,5 @@
+import { APIResponse } from '@desarrollo_web/ng-services';
 import { JsonObject, JsonProperty } from 'json2typescript';
-import { JsonToObject } from '~/shared/services/api/classes/JsonToObject';
 
 @JsonObject('Lang')
 export class Lang {
@@ -23,7 +23,7 @@ export class Langs {
 }
 
 @JsonObject('GetLangs')
-export class GetLangs extends JsonToObject {
+export class GetLangs extends APIResponse {
   @JsonProperty('datos', Langs, true)
   datos: Langs = undefined;
 }

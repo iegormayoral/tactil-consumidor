@@ -2,7 +2,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgServicesModule } from '@desarrollo_web/ng-services';
+import {
+  API_DOMAIN,
+  JWTToken,
+  NgServicesModule,
+  TOKEN_JWT,
+  TOKEN_REFRESH_TIME,
+  TOKEN_STORAGE_KEY
+} from '@desarrollo_web/ng-services';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxElectronModule } from 'ngx-electron';
@@ -15,7 +22,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Device } from './shared/services/device/device';
 import { Lang } from './shared/services/lang/lang';
-import { JwtLogin } from './shared/services/login/classes/JwtLogin';
 import { SharedModule } from './shared/shared.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DeviceModule } from './device/device.module';
@@ -26,7 +32,6 @@ import {
   APP_VERSION,
   AUTH_DEFAULT_PASSWORD,
   AUTH_DEFAULT_STOREID, DEVICE, DEVICE_STORAGE_KEY,
-  HTTP_REQUEST_TIMEOUT,
   LANG,
   LANG_DEFAULT,
   LANG_LIST,
@@ -34,9 +39,6 @@ import {
   THEME, THEME_DEFAULT,
   THEME_LIST,
   THEME_STORAGE_KEY,
-  TOKEN_JWT,
-  TOKEN_REFRESH_TIME,
-  TOKEN_STORAGE_KEY
 } from './tokens';
 
 // AoT requires an exported function for factories
@@ -84,7 +86,17 @@ export function AppInitFactory(appInitService: AppInitService) {
     { provide: APP_VERSION, useValue: '0.0.0' },
     { provide: APP_ENV, useValue: AppConfig.environment },
     { provide: LANG, useValue: new BehaviorSubject<Lang>(null) },
-    { provide: LANG_LIST, useValue: new BehaviorSubject<Lang[]>([]) },
+    {
+      provide: LANG_LIST,
+      useValue: new BehaviorSubject<Lang[]>([
+        {
+          idioma: 'es',
+          idiomajs: 'es',
+          bandera: '',
+          descri: 'Esp'
+        }
+      ])
+    },
     { provide: LANG_DEFAULT, useValue: 'en' },
     { provide: LANG_STORAGE_KEY, useValue: 'lang' },
     { provide: THEME, useValue: new BehaviorSubject<string>(null) },
@@ -92,12 +104,13 @@ export function AppInitFactory(appInitService: AppInitService) {
     { provide: THEME_DEFAULT, useValue: 'myrl' },
     { provide: THEME_STORAGE_KEY, useValue: 'theme' },
     { provide: TOKEN_REFRESH_TIME, useValue: 5 * 1000 },
-    { provide: TOKEN_JWT, useValue: new BehaviorSubject<JwtLogin>(null) },
+    { provide: TOKEN_JWT, useValue: new BehaviorSubject<JWTToken>(null) },
     { provide: TOKEN_STORAGE_KEY, useValue: 'access_token' },
     { provide: AUTH_DEFAULT_STOREID, useValue: 501 },
     { provide: AUTH_DEFAULT_PASSWORD, useValue: '7759B882YT' },
     { provide: API_HTTP_TIMEOUT, useValue: 15000 },
-    { provide: API_HTTP_HEADERS, useValue: {} },
+    { provide: API_HTTP_HEADERS, useValue: { 'Content-Type': 'application/json; charset=utf-8' } },
+    { provide: API_DOMAIN, useValue: AppConfig.URL_API400 },
     { provide: DEVICE, useValue: new BehaviorSubject<Device>(new Device()) },
     { provide: DEVICE_STORAGE_KEY, useValue: 'device' },
   ],

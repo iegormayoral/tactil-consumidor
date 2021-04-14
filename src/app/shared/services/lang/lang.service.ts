@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { APIRequest } from '@desarrollo_web/ng-services';
+import { APIRequest, APIService } from '@desarrollo_web/ng-services';
 import { TranslateService } from '@ngx-translate/core';
 import { NGXLogger } from 'ngx-logger';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -12,7 +12,6 @@ import {
   LANG_LIST,
   LANG_STORAGE_KEY
 } from '~/tokens';
-import { API400Service } from '../api/api400.service';
 import { Device } from '../device/device';
 import { GetLangs, Lang } from './lang';
 
@@ -22,9 +21,9 @@ import { GetLangs, Lang } from './lang';
 export class LangService {
 
   constructor(
-    private api400Service: API400Service,
-    private translateService: TranslateService,
+    private api: APIService,
     private logger: NGXLogger,
+    private translateService: TranslateService,
     @Inject(AUTH_DEFAULT_STOREID) private defaultStoreId: number,
     @Inject(LANG) private lang: BehaviorSubject<Lang>,
     @Inject(LANG_LIST) private langList: BehaviorSubject<Lang[]>,
@@ -88,7 +87,7 @@ export class LangService {
     const request = new APIRequest(`${area}/${programa}`, params, GetLangs);
     request.isLogin = false;
 
-    return this.api400Service.post<GetLangs>(request)
+    return this.api.post<GetLangs>(request)
       .pipe(
         map(data => {
           if (data.allOk()) {
