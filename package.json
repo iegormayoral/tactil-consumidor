@@ -36,7 +36,7 @@
   "dependencies": {
     "@angular/animations": "11.2.7",
     "@auth0/angular-jwt": "5.0.2",
-    "@desarrollo_web/ng-services": "0.0.4",
+    "@desarrollo_web/ng-services": "0.0.13",
     "@ng-bootstrap/ng-bootstrap": "9.1.0",
     "angular-responsive-carousel": "2.0.2",
     "awesome-qr": "2.1.4-rc.0",
