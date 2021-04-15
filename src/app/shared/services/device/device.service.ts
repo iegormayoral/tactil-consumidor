@@ -66,7 +66,6 @@ export class DeviceService {
           tip_dev: deviceType,
           cod_dev: deviceCode,
           forzarc: force ? 'S' : 'N',
-          dev_modelo: device.info_dev.model,
         }
       }
     };
