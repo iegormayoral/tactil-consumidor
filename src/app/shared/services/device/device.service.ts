@@ -97,13 +97,11 @@ export class DeviceService {
   }
 
   check(): Observable<boolean> {
-    const device = this.getStoredDevice();
-    if (!device) {
+    const storedDevice = this.getStoredDevice();
+    if (!storedDevice) {
       this.logger.debug('There is no information stored for this device');
       return of(false);
     }
-
-    console.log('check', device);
 
     const programa = 'REGPGM01';
     const area = 'SHOP';
@@ -114,9 +112,9 @@ export class DeviceService {
         version: 0,
         body: {
           tienda: this.defaultStoreId,
-          tip_dev: device.tip_dev,
-          cod_dev: device.cod_dev,
-          uid_dev: device.uid_dev,
+          tip_dev: storedDevice.tip_dev,
+          cod_dev: storedDevice.cod_dev,
+          uid_dev: storedDevice.uid_dev,
         }
       }
     };
@@ -124,7 +122,15 @@ export class DeviceService {
     const request = new APIRequest(`${area}/${programa}`, params, CheckDevice);
     return this.api.post<CheckDevice>(request)
       .pipe(
-        map(data => data.allOk()),
+        map(data => {
+          if (data.allOk()) {
+            const device = this.device.getValue();
+            storedDevice.info_dev = device.info_dev;
+            this.device.next(storedDevice);
+          }
+
+          return data.allOk();
+        }),
         catchError((err: Response) => {
           this.logger.error('An error has ocurred while checking this device', err);
           return of(false);

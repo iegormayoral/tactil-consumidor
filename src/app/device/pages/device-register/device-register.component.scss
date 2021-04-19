@@ -1,3 +1,7 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/breakpoints';
+
 :host {
   display: flex;
   flex-direction: column;
@@ -7,6 +11,13 @@
   background-image: url(https://media.mayoral.com/wcsstore/mayoral/images/Attachment/ropa-infantil-myrl-prehome-v21.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+
+  @include media-breakpoint-down(md) {
+    justify-content: flex-start;
+    height: 100vh;
+    padding: var(--spacing-5) 0;
+    overflow-y: auto;
+  }
 }
 
 .dr-container {

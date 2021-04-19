@@ -90,11 +90,17 @@ export function AppInitFactory(appInitService: AppInitService) {
       provide: LANG_LIST,
       useValue: new BehaviorSubject<Lang[]>([
         {
-          idioma: 'es',
+          idioma: 'E',
           idiomajs: 'es',
-          bandera: '',
-          descri: 'Esp'
-        }
+          descri: 'Español',
+          bandera: 'https://www.mayoralonline.com/LibComunes/Lib_img/ico/banderas/ES.png'
+        },
+        {
+          idioma: 'I',
+          idiomajs: 'en',
+          descri: 'English',
+          bandera: 'https://www.mayoralonline.com/LibComunes/Lib_img/ico/banderas/GB.png'
+        },
       ])
     },
     { provide: LANG_DEFAULT, useValue: 'en' },
